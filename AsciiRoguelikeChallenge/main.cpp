@@ -247,9 +247,14 @@ void buildUI(string state[20])
 			}
 		}
 
+		if (x == 11)
+		{
+			line += "   EXP";
+		}
+
 		if (x == 12)
 		{
-			line += " SYMBOLS";
+			line += " " + to_string(player.getCurrentExp()) + "/" + to_string(player.getTotalExpNeededToLevel());
 		}
 
 		if (x == 14)
@@ -814,7 +819,7 @@ void fight(Monster &monster, string name)
 	while (battleComplete == false)
 	{
 		cout << "You have " + to_string(player.getCurrentHP()) + "/" + to_string(player.getMaxHP()) + " HP" << endl;
-		cout << "The " + name + " has " + to_string(monster.getHP()) + "." << endl;
+		cout << "The " + name + " has " + to_string(monster.getHP()) + " HP." << endl;
 		validAction = false;
 		while (validAction == false)
 		{
@@ -847,8 +852,9 @@ void fight(Monster &monster, string name)
 					cout << "You defeated the " + name + "!" << endl;
 					cout << "You earned " + to_string(monster.getExp()) + " Experience points. " << endl;
 					cout << "Press any key to continue." << endl;
-					waitForKeypress();
 					player.earnExp(monster.getExp());
+					player.levelUp();
+					waitForKeypress();
 					monster.dead();
 					
 					//Remove the enemies symbol from the game state

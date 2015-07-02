@@ -21,7 +21,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 20 + (level * 2);
+		_HP = 25 + (level * 3);
 		_strength = 1 + level;
 		_defence = 1 + level;
 		_expReward = 25 + (level * 2);
@@ -31,7 +31,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 30 + (level * 3);
+		_HP = 40 + (level * 5);
 		_strength = 2 + (level*2);
 		_defence = 1 + level;
 		_expReward = 45 + (level * 3);

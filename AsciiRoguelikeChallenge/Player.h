@@ -21,6 +21,8 @@ public:
 	int getDef();
 	int getCurrentHP();
 	int getMaxHP();
+	int getCurrentExp();
+	int getTotalExpNeededToLevel();
 
 
 private:
@@ -30,5 +32,6 @@ private:
 	int _strength;
 	int _defence;
 	int _exp;
+	int _totalExpNeededToLevel;
 };
 
