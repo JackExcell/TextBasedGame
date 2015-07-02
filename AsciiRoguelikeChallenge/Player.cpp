@@ -15,6 +15,16 @@ void Player::newGame()
 	_defence = 5;
 }
 
+void Player::takeDamage(int damage)
+{
+	_currentHP = _currentHP - damage;
+}
+
+void Player::earnExp(int exp)
+{
+	_exp = _exp + exp;
+}
+
 int Player::getLevel()
 {
 	return _level;

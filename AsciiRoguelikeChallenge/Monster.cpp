@@ -54,9 +54,31 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 
 }
 
+void Monster::dead()
+{
+	_active = false;
+}
+
 bool Monster::isMonsterActive()
 {
 	return _active;
+}
+
+bool Monster::checkIfDead()
+{
+	if (_HP > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Monster::takeDamage(int damage)
+{
+	_HP = _HP - damage;
 }
 
 int Monster::getXPosition()
@@ -72,6 +94,16 @@ int Monster::getYPosition()
 int Monster::getHP()
 {
 	return _HP;
+}
+
+int Monster::getStrength()
+{
+	return _strength;
+}
+
+int Monster::getExp()
+{
+	return _expReward;
 }
 
 void Monster::setXPosition(int &newX)

@@ -62,6 +62,8 @@ Monster monster9;
 //RNG Data
 default_random_engine rng;
 uniform_int_distribution<int> randomDirection(1, 4);
+uniform_int_distribution<int> damageVariation(3, 7);
+uniform_int_distribution<int> criticalHitRoll(1, 100);
 
 int main()
 {
@@ -219,7 +221,9 @@ void buildUI(string state[20])
 		{
 			int currHP = player.getCurrentHP();
 			int maxHP = player.getMaxHP();
-			int percentage = (currHP / maxHP)*100;
+			double percentage = (double)currHP / (double)maxHP;
+			percentage *= 100;
+
 
 			if (percentage <= 20)
 			{
@@ -771,16 +775,28 @@ void initiateCombat(Monster &monster)
 			gameLog[0] = "You have encountered an Ogre!";
 			gameLog[1] = "Prepare for battle! Press any key...";
 			monsterName = "Ogre";
+			buildUI(currentGameState);
+			printUI();
+			waitForKeypress();
+			clearLog();
 			break;
 		case 'D':
 			gameLog[0] = "A fearsome Dragon blocks your path!";
 			gameLog[1] = "Prepare for battle! Press any key...";
 			monsterName = "Dragon";
+			buildUI(currentGameState);
+			printUI();
+			waitForKeypress();
+			clearLog();
 			break;
 		case 'K':
 			gameLog[0] = "You stand before the Dragon King.";
 			gameLog[1] = "Prepare for the final battle! Press any key...";
 			monsterName = "Dragon King";
+			buildUI(currentGameState);
+			printUI();
+			waitForKeypress();
+			clearLog();
 			break;
 		}
 
@@ -793,6 +809,7 @@ void fight(Monster &monster, string name)
 	clearScreen();
 	bool battleComplete = false;
 	bool validAction = false;
+	bool alive = true;
 	cout << "You have engaged a Level " + to_string(currentLevel) + " " + name + "." << endl << endl;
 	while (battleComplete == false)
 	{
@@ -810,7 +827,55 @@ void fight(Monster &monster, string name)
 
 			if (input == '1')
 			{
-				cout << "Attack!" << endl;
+				int baseDamage = player.getStr();
+				int bonusDamage = damageVariation(rng);
+				int totalDamage = baseDamage + bonusDamage;
+				int critRoll = criticalHitRoll(rng);
+				clearScreen();
+				cout << "You attack the " + name + "." << endl;
+				if (critRoll > 90)
+				{
+					cout << "Critical hit!" << endl;
+					totalDamage = totalDamage * 1.5;
+				}
+				cout << "You inflict " + to_string(totalDamage) + " damage." << endl << endl;
+				monster.takeDamage(totalDamage);
+				alive = monster.checkIfDead();
+				if (alive == false)
+				{
+					//Enemy defeated
+					cout << "You defeated the " + name + "!" << endl;
+					cout << "You earned " + to_string(monster.getExp()) + " Experience points. " << endl;
+					cout << "Press any key to continue." << endl;
+					waitForKeypress();
+					player.earnExp(monster.getExp());
+					monster.dead();
+					
+					//Remove the enemies symbol from the game state
+					int xPos = monster.getXPosition();
+					int yPos = monster.getYPosition();
+					string line = currentGameState[yPos];
+					line[xPos] = '.';
+					currentGameState[yPos] = line;
+
+					battleComplete = true;
+				}
+				else
+				{
+					//Enemies turn to attack
+					int baseDamage = monster.getStrength();
+					int bonusDamage = damageVariation(rng);
+					int totalDamage = baseDamage + bonusDamage;
+					int critRoll = criticalHitRoll(rng);
+					cout << "The " + name + " attacks you." << endl;
+					if (critRoll > 90)
+					{
+						cout << "Ouch, you took Critical hit!" << endl;
+						totalDamage = totalDamage * 1.5;
+					}
+					cout << "You take " + to_string(totalDamage) + " damage." << endl << endl;
+					player.takeDamage(totalDamage);
+				}
 				validAction = true;
 			}
 			else if (input == '2')
@@ -830,7 +895,6 @@ void fight(Monster &monster, string name)
 		}
 	}
 
-	waitForKeypress();
 	battleComplete = true;
 	clearScreen();
 }
