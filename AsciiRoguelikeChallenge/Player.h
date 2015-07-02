@@ -6,7 +6,8 @@ public:
 
 	void newGame();
 	void setLevel();
-	void setCurrentHP();
+	void takeDamage(int damage);
+	void earnExp(int exp);
 	void setMaxHP();
 	void setStrength();
 	void setDefence();
@@ -20,6 +21,8 @@ public:
 	int getDef();
 	int getCurrentHP();
 	int getMaxHP();
+	int getCurrentExp();
+	int getTotalExpNeededToLevel();
 
 
 private:
@@ -28,5 +31,7 @@ private:
 	int _maxHP;
 	int _strength;
 	int _defence;
+	int _exp;
+	int _totalExpNeededToLevel;
 };
 

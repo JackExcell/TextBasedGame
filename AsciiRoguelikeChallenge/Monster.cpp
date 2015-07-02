@@ -21,7 +21,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 20 + (level * 2);
+		_HP = 25 + (level * 3);
 		_strength = 1 + level;
 		_defence = 1 + level;
 		_expReward = 25 + (level * 2);
@@ -31,7 +31,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 30 + (level * 3);
+		_HP = 40 + (level * 5);
 		_strength = 2 + (level*2);
 		_defence = 1 + level;
 		_expReward = 45 + (level * 3);
@@ -54,9 +54,31 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 
 }
 
+void Monster::dead()
+{
+	_active = false;
+}
+
 bool Monster::isMonsterActive()
 {
 	return _active;
+}
+
+bool Monster::checkIfDead()
+{
+	if (_HP > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Monster::takeDamage(int damage)
+{
+	_HP = _HP - damage;
 }
 
 int Monster::getXPosition()
@@ -72,6 +94,16 @@ int Monster::getYPosition()
 int Monster::getHP()
 {
 	return _HP;
+}
+
+int Monster::getStrength()
+{
+	return _strength;
+}
+
+int Monster::getExp()
+{
+	return _expReward;
 }
 
 void Monster::setXPosition(int &newX)

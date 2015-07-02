@@ -4,12 +4,17 @@ class Monster
 public:
 	Monster();
 	void initialise(int xPos, int yPos, int level, char type);
+	void dead();
 	void setXPosition(int &newX);
 	void setYPosition(int &newY);
 	bool isMonsterActive();
+	bool checkIfDead();
+	void takeDamage(int damage);
 	int getXPosition();
 	int getYPosition();
 	int getHP();
+	int getStrength();
+	int getExp();
 	char getType();
 
 private:
