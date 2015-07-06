@@ -3,9 +3,11 @@
 #include <conio.h>
 #include <fstream>
 #include <random>
+#include <vector>
 
 #include "Player.h"
 #include "Monster.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -20,6 +22,10 @@ void monstersRoam();
 void singleMonsterRoam(Monster &monster);
 void initiateCombat(Monster &monster);
 void fight(Monster &monster, string name);
+void addItemToInventory(int itemId);
+void useItem(Item item);
+void openInventory();
+void emptyInventory();
 void play();
 void moveUp();
 void moveRight();
@@ -44,6 +50,7 @@ string UI[24];
 
 //Game Data
 Player player;
+vector<Item> inventory;
 int currentLevel = 0;
 string gameLog[3];
 
@@ -102,6 +109,9 @@ int main()
 			//New Game
 			loadLevel(1);
 			player.newGame();
+			emptyInventory();
+			addItemToInventory(0);
+			addItemToInventory(0);
 			initialiseMonsters();
 			buildUI(currentGameState);
 			printUI();
@@ -350,6 +360,10 @@ void play()
 		{
 			moveRight();
 			monstersRoam();
+		}
+		else if (input == 'i' || input == 'I')
+		{
+			openInventory();
 		}
 		else if (input == 'q' || input == 'Q')
 		{
@@ -903,4 +917,160 @@ void fight(Monster &monster, string name)
 
 	battleComplete = true;
 	clearScreen();
+}
+
+void addItemToInventory(int itemId)
+{
+	if (inventory.size() < 5)
+	{
+		Item item(itemId);
+		inventory.push_back(item);
+	}
+}
+
+void openInventory()
+{
+	if (inventory.size() == 0)
+	{
+		clearScreen();
+		cout << "There are no items in your Inventory..." << endl;
+		waitForKeypress;
+	}
+	else
+	{
+		bool closeInventory = false;
+		while (closeInventory == false)
+		{
+			clearScreen();
+			cout << "-----------------" << endl;
+			cout << "|   INVENTORY   |" << endl;
+			cout << "-----------------" << endl << endl;
+			for (int x = 0; x < inventory.size(); x++)
+			{
+				int itemNumber = x + 1;
+				cout << to_string(itemNumber) + " - " + inventory[x].getName() << endl;
+			}
+
+			cout << "\nType the corresponding number to inspect the item or press I again to exit your inventory." << endl;
+
+			input = _getch();
+
+			if (input == 'I' || input == 'i')
+			{
+				//Close inventory
+				closeInventory = true;
+			}
+
+			if (input == '1' && inventory.size()>0)
+			{
+				clearScreen();
+				cout << inventory[0].getName() << endl;
+				cout << "\n" + inventory[0].getDescription() << endl;
+				cout << "\nUse this item? (Y/N)" << endl;
+
+				input = _getch();
+
+				if (input == 'y' || input == 'Y')
+				{
+					useItem(inventory[0]);
+					inventory.erase(inventory.begin());
+					closeInventory = true;
+				}
+			}
+
+			if (input == '2' && inventory.size()>1)
+			{
+				clearScreen();
+				cout << inventory[1].getName() << endl;
+				cout << "\n" + inventory[1].getDescription() << endl;
+				cout << "\nUse this item? (Y/N)" << endl;
+
+				input = _getch();
+
+				if (input == 'y' || input == 'Y')
+				{
+					useItem(inventory[1]);
+					inventory.erase(inventory.begin()+1);
+					closeInventory = true;
+				}
+			}
+
+			if (input == '3' && inventory.size()>2)
+			{
+				clearScreen();
+				cout << inventory[2].getName() << endl;
+				cout << "\n" + inventory[2].getDescription() << endl;
+				cout << "\nUse this item? (Y/N)" << endl;
+
+				input = _getch();
+
+				if (input == 'y' || input == 'Y')
+				{
+					useItem(inventory[2]);
+					inventory.erase(inventory.begin() + 2);
+					closeInventory = true;
+				}
+			}
+
+			if (input == '4' && inventory.size()>3)
+			{
+				clearScreen();
+				cout << inventory[3].getName() << endl;
+				cout << "\n" + inventory[3].getDescription() << endl;
+				cout << "\nUse this item? (Y/N)" << endl;
+
+				input = _getch();
+
+				if (input == 'y' || input == 'Y')
+				{
+					useItem(inventory[3]);
+					inventory.erase(inventory.begin() + 3);
+					closeInventory = true;
+				}
+			}
+
+			if (input == '5' && inventory.size()>4)
+			{
+				clearScreen();
+				cout << inventory[4].getName() << endl;
+				cout << "\n" + inventory[4].getDescription() << endl;
+				cout << "\nUse this item? (Y/N)" << endl;
+
+				input = _getch();
+
+				if (input == 'y' || input == 'Y')
+				{
+					useItem(inventory[4]);
+					inventory.erase(inventory.begin() + 4);
+					closeInventory = true;
+				}
+			}
+		}
+	}
+}
+
+void useItem(Item item)
+{
+	int healAmount = item.getHealAmount();
+	int healthLossAmount = item.getHealthLossAmount();
+	int strengthUp = item.getStrUp();
+	int strengthDown = item.getStrDown();
+	int defenceUp = item.getDefUp();
+	int defenceDown = item.getDefDown();
+	int maxHpUp = item.getMaxHpUp();
+	int maxHpDown = item.getMaxHpDown();
+
+	player.heal(healAmount);
+	player.loseHealth(healthLossAmount);
+	player.increaseStrength(strengthUp);
+	player.decreaseStrength(strengthDown);
+	player.increaseDefence(defenceUp);
+	player.decreaseDefence(defenceDown);
+	player.maxHpUp(maxHpUp);
+	player.maxHpDown(maxHpDown);
+}
+
+void emptyInventory()
+{
+	inventory.clear();
 }

@@ -30,6 +30,22 @@ void Player::earnExp(int exp)
 	_exp = _exp + exp;
 }
 
+void Player::maxHpUp(int amount)
+{
+	_maxHP += amount;
+	_currentHP += amount;
+}
+
+void Player::maxHpDown(int amount)
+{
+	_maxHP -= amount;
+
+	if (_currentHP > _maxHP)
+	{
+		_currentHP = _maxHP;
+	}
+}
+
 int Player::getLevel()
 {
 	return _level;
@@ -81,4 +97,45 @@ void Player::levelUp()
 		_exp -= _totalExpNeededToLevel;
 		_totalExpNeededToLevel = 100 + (_level * 40);
 	}
+}
+
+void Player::heal(int heal)
+{
+	_currentHP += heal;
+
+	if (_currentHP > _maxHP)
+	{
+		_currentHP = _maxHP;
+	}
+
+}
+
+void Player::loseHealth(int amount)
+{
+	_currentHP -= amount;
+
+	if (_currentHP < 0)
+	{
+		_currentHP = 1;
+	}
+}
+
+void Player::increaseStrength(int str)
+{
+	_strength += str;
+}
+
+void Player::decreaseStrength(int str)
+{
+	_strength -= str;
+}
+
+void Player::increaseDefence(int def)
+{
+	_defence += def;
+}
+
+void Player::decreaseDefence(int def)
+{
+	_defence -= def;
 }

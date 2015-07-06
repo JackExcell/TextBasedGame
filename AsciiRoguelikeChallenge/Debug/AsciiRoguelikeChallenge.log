@@ -1,15 +1,24 @@
-﻿Build started 02/07/2015 23:34:16.
-     1>Project "C:\Users\Jack\Documents\GitHub\TextBasedGame\AsciiRoguelikeChallenge\AsciiRoguelikeChallenge.vcxproj" on node 2 (Build target(s)).
+﻿Build started 06/07/2015 07:36:09.
+     1>Project "C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\AsciiRoguelikeChallenge\AsciiRoguelikeChallenge.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp
-         Player.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Item.cpp main.cpp
+         Item.cpp
+         Generating Code...
+         Compiling...
+         main.cpp
+     1>c:\users\jack\desktop\projects\c++ study\asciiroguelikechallenge\textbasedgame\asciiroguelikechallenge\main.cpp(858): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\jack\desktop\projects\c++ study\asciiroguelikechallenge\textbasedgame\asciiroguelikechallenge\main.cpp(894): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\jack\desktop\projects\c++ study\asciiroguelikechallenge\textbasedgame\asciiroguelikechallenge\main.cpp(937): warning C4551: function call missing argument list
+     1>c:\users\jack\desktop\projects\c++ study\asciiroguelikechallenge\textbasedgame\asciiroguelikechallenge\main.cpp(948): warning C4018: '<': signed/unsigned mismatch
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jack\Documents\GitHub\TextBasedGame\Debug\AsciiRoguelikeChallenge.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Jack\Documents\GitHub\TextBasedGame\Debug\AsciiRoguelikeChallenge.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jack\Documents\GitHub\TextBasedGame\Debug\AsciiRoguelikeChallenge.lib" /MACHINE:X86 Debug\main.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\Debug\AsciiRoguelikeChallenge.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\Debug\AsciiRoguelikeChallenge.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\Debug\AsciiRoguelikeChallenge.lib" /MACHINE:X86 Debug\Item.obj
+         Debug\main.obj
          Debug\Monster.obj
          Debug\Player.obj
-         AsciiRoguelikeChallenge.vcxproj -> C:\Users\Jack\Documents\GitHub\TextBasedGame\Debug\AsciiRoguelikeChallenge.exe
-     1>Done Building Project "C:\Users\Jack\Documents\GitHub\TextBasedGame\AsciiRoguelikeChallenge\AsciiRoguelikeChallenge.vcxproj" (Build target(s)).
+         AsciiRoguelikeChallenge.vcxproj -> C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\Debug\AsciiRoguelikeChallenge.exe
+     1>Done Building Project "C:\Users\Jack\Desktop\Projects\C++ Study\AsciiRoguelikeChallenge\TextBasedGame\AsciiRoguelikeChallenge\AsciiRoguelikeChallenge.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.93
+Time Elapsed 00:00:03.34
