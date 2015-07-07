@@ -26,6 +26,7 @@ void addItemToInventory(int itemId);
 void useItem(Item item);
 void openInventory();
 void emptyInventory();
+void treasure();
 void play();
 void moveUp();
 void moveRight();
@@ -419,6 +420,12 @@ void moveUp()
 	{
 		gameLog[0] = "There's a wall in the way.";
 	}
+	else if (destination == 'T')
+	{
+		currentGameState[currentLine - 1].replace(currentColumn, 1, "@");
+		currentGameState[currentLine].replace(currentColumn, 1, ".");
+		treasure();
+	}
 }
 
 void moveRight()
@@ -447,6 +454,12 @@ void moveRight()
 	else if (destination == '#')
 	{
 		gameLog[0] = "There's a wall in the way.";
+	}
+	if (destination == 'T')
+	{
+		currentGameState[currentLine].replace(currentColumn + 1, 1, "@");
+		currentGameState[currentLine].replace(currentColumn, 1, ".");
+		treasure();
 	}
 }
 
@@ -477,6 +490,12 @@ void moveLeft()
 	{
 		gameLog[0] = "There's a wall in the way.";
 	}
+	if (destination == 'T')
+	{
+		currentGameState[currentLine].replace(currentColumn - 1, 1, "@");
+		currentGameState[currentLine].replace(currentColumn, 1, ".");
+		treasure();
+	}
 }
 
 void moveDown()
@@ -505,6 +524,12 @@ void moveDown()
 	else if (destination == '#')
 	{
 		gameLog[0] = "There's a wall in the way.";
+	}
+	if (destination == 'T')
+	{
+		currentGameState[currentLine + 1].replace(currentColumn, 1, "@");
+		currentGameState[currentLine].replace(currentColumn, 1, ".");
+		treasure();
 	}
 }
 
@@ -857,6 +882,7 @@ void fight(Monster &monster, string name)
 					cout << "Critical hit!" << endl;
 					totalDamage = totalDamage * 1.5;
 				}
+				totalDamage -= monster.getDefence();
 				cout << "You inflict " + to_string(totalDamage) + " damage." << endl << endl;
 				monster.takeDamage(totalDamage);
 				alive = monster.checkIfDead();
@@ -893,6 +919,7 @@ void fight(Monster &monster, string name)
 						cout << "Ouch, you took Critical hit!" << endl;
 						totalDamage = totalDamage * 1.5;
 					}
+					totalDamage -= player.getDef();
 					cout << "You take " + to_string(totalDamage) + " damage." << endl << endl;
 					player.takeDamage(totalDamage);
 				}
@@ -1073,4 +1100,53 @@ void useItem(Item item)
 void emptyInventory()
 {
 	inventory.clear();
+}
+
+void treasure()
+{
+	//This value needs to be updated as new items are added to ensure ill items are randomly obtainable.
+	uniform_int_distribution<int> treasureRoll(0, 1);
+	int roll = treasureRoll(rng);
+	Item loot(roll);
+
+	//Interface
+	clearScreen();
+	cout << "--------------------" << endl;
+	cout << "|  Treasure Chest  |" << endl;
+	cout << "--------------------" << endl;
+	cout << "\nYou open the treasure chest..." << endl;
+	cout << "\nAnd find a " + loot.getName() + "!" << endl;
+	cout << "\nEffect: " + loot.getDescription() << endl;
+
+	if (inventory.size() < 5)
+	{
+		cout << "\nYou put the " + loot.getName() + " into your inventory." << endl;
+		addItemToInventory(roll);
+	}
+	else
+	{
+		cout << "\nYour inventory is full, use this item now? (Y/N)" << endl;
+		bool decided = false;
+
+		while (decided == false)
+		{
+			if (input == 'y' || input == 'Y')
+			{
+				cout << "You used the " + loot.getName() << endl;
+				useItem(loot);
+				decided = true;
+			}
+			else if (input == 'n' || input == 'N')
+			{
+				cout << "You discarded the " + loot.getName() + "..." << endl;
+				decided = true;
+			}
+		}
+
+	}
+
+	cout << "\n\nPress any key to continue." << endl;
+	waitForKeypress();
+	buildUI(currentGameState);
+	printUI();
 }

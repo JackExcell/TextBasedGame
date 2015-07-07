@@ -14,6 +14,7 @@ public:
 	int getYPosition();
 	int getHP();
 	int getStrength();
+	int getDefence();
 	int getExp();
 	char getType();
 

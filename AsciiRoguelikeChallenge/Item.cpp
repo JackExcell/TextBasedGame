@@ -3,6 +3,8 @@
 
 Item::Item(int itemId)
 {
+	//Current number of items = 2
+
 	//The name, description and effects of the item are determined by its Id.
 	//The switch statement below serves as a list of all available items in game,
 	//specified by the given parameter.

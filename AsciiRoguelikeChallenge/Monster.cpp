@@ -22,7 +22,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_yPos = yPos;
 		_type = type;
 		_HP = 25 + (level * 3);
-		_strength = 1 + level;
+		_strength = 5 + level;
 		_defence = 1 + level;
 		_expReward = 25 + (level * 2);
 		break;
@@ -32,7 +32,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_yPos = yPos;
 		_type = type;
 		_HP = 40 + (level * 5);
-		_strength = 2 + (level*2);
+		_strength = 6 + (level*2);
 		_defence = 1 + level;
 		_expReward = 45 + (level * 3);
 		break;
@@ -99,6 +99,11 @@ int Monster::getHP()
 int Monster::getStrength()
 {
 	return _strength;
+}
+
+int Monster::getDefence()
+{
+	return _defence;
 }
 
 int Monster::getExp()
