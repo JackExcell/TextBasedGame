@@ -927,7 +927,8 @@ void fight(Monster &monster, string name)
 			}
 			else if (input == '2')
 			{
-				cout << "item!" << endl;
+				clearScreen();
+				openInventory();
 				validAction = true;
 			}
 			else if (input == '3')
