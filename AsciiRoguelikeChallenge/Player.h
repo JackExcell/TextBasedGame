@@ -27,6 +27,7 @@ public:
 	int getMaxHP();
 	int getCurrentExp();
 	int getTotalExpNeededToLevel();
+	bool isPlayerDead();
 
 
 private:

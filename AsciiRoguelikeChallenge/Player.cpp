@@ -81,6 +81,19 @@ int Player::getTotalExpNeededToLevel()
 	return _totalExpNeededToLevel;
 }
 
+//Returns true if the player has no health remaining.
+bool Player::isPlayerDead()
+{
+	if (_currentHP > 0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
 void Player::levelUp()
 {
 	if (_exp > _totalExpNeededToLevel)

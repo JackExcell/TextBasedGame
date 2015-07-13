@@ -34,8 +34,10 @@ void moveLeft();
 void moveDown();
 bool quitGame();
 void clearLog();
+void gameOverDisplay();
 
 char input;
+bool gameOver = false;
 bool quit = false;
 bool loopMenu = true;
 
@@ -54,6 +56,7 @@ Player player;
 vector<Item> inventory;
 int currentLevel = 0;
 string gameLog[3];
+int fleeing = 0;
 
 //Monsters, maximum of 10 per level
 Monster monster0;
@@ -346,21 +349,37 @@ void play()
 		{
 			moveUp();
 			monstersRoam();
+			if (fleeing > 0)
+			{
+				fleeing--;
+			}
 		}
 		else if (input == 'a' || input == 'A')
 		{
 			moveLeft();
 			monstersRoam();
+			if (fleeing > 0)
+			{
+				fleeing--;
+			}
 		}
 		else if (input == 's' || input == 'S')
 		{
 			moveDown();
 			monstersRoam();
+			if (fleeing > 0)
+			{
+				fleeing--;
+			}
 		}
 		else if (input == 'd' || input == 'D')
 		{
 			moveRight();
 			monstersRoam();
+			if (fleeing > 0)
+			{
+				fleeing--;
+			}
 		}
 		else if (input == 'i' || input == 'I')
 		{
@@ -385,8 +404,19 @@ void play()
 			gameLog[0] = "Invalid input, try again.";
 		}
 
+		if (gameOver)
+		{
+			clearScreen();
+			gameOverDisplay();
+			quit = true;
+		}
+
 		if (!quit)
 		{
+			if (fleeing > 0)
+			{
+				gameLog[2] = "You are fleeing! (" + to_string(fleeing) + " more steps)";
+			}
 			buildUI(currentGameState);
 			printUI();
 		}
@@ -780,7 +810,10 @@ void singleMonsterRoam(Monster &monster)
 			break;
 		}
 
-		initiateCombat(monster);
+		if (fleeing == 0)
+		{
+			initiateCombat(monster);
+		}
 	}
 }
 
@@ -922,6 +955,12 @@ void fight(Monster &monster, string name)
 					totalDamage -= player.getDef();
 					cout << "You take " + to_string(totalDamage) + " damage." << endl << endl;
 					player.takeDamage(totalDamage);
+					if (player.isPlayerDead())
+					{
+						cout << "\nYou have been defeated..." << endl;
+						gameOver = true;
+						battleComplete = true;
+					}
 				}
 				validAction = true;
 			}
@@ -933,7 +972,21 @@ void fight(Monster &monster, string name)
 			}
 			else if (input == '3')
 			{
-				cout << "You attempt to flee." << endl;
+				int fleeDamage = monster.getStrength() + 10;
+				cout << "\nYou fight off the "+ name +" long enough to make your escape,\nbut you took " + to_string(fleeDamage) + " damage in the process." <<endl;
+				player.takeDamage(fleeDamage);
+				if (player.isPlayerDead())
+				{
+					cout << "\nYou have been defeated..." << endl;
+					gameOver = true;
+				}
+				else
+				{
+					fleeing = 3;
+				}
+				cout << "Press any key." << endl;
+				waitForKeypress();
+				battleComplete = true;
 				validAction = true;
 			}
 			else
@@ -1150,4 +1203,11 @@ void treasure()
 	waitForKeypress();
 	buildUI(currentGameState);
 	printUI();
+}
+
+void gameOverDisplay()
+{
+	cout << "                                       GAME OVER\n\n\n\n\n\n\n\n\n\n\n\nPress any key..." << endl;
+	waitForKeypress();
+	clearScreen();
 }
