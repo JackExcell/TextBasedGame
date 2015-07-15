@@ -25,6 +25,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_strength = 5 + level;
 		_defence = 1 + level;
 		_expReward = 25 + (level * 2);
+		_goldReward = 12 + level;
 		break;
 	case 'O':
 		//Monster is of type Ogre
@@ -35,6 +36,7 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_strength = 6 + (level*2);
 		_defence = 1 + level;
 		_expReward = 45 + (level * 3);
+		_goldReward = 30 + (level * 2);
 		break;
 	case 'D':
 		//Monster is of type Dragon
@@ -109,6 +111,11 @@ int Monster::getDefence()
 int Monster::getExp()
 {
 	return _expReward;
+}
+
+int Monster::getGoldReward()
+{
+	return _goldReward;
 }
 
 void Monster::setXPosition(int &newX)

@@ -30,6 +30,11 @@ void Player::earnExp(int exp)
 	_exp = _exp + exp;
 }
 
+void Player::earnGold(int gold)
+{
+	_gold += gold;
+}
+
 void Player::maxHpUp(int amount)
 {
 	_maxHP += amount;
@@ -79,6 +84,11 @@ int Player::getCurrentExp()
 int Player::getTotalExpNeededToLevel()
 {
 	return _totalExpNeededToLevel;
+}
+
+int Player::getGold()
+{
+	return _gold;
 }
 
 //Returns true if the player has no health remaining.

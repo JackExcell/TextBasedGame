@@ -192,28 +192,35 @@ void buildUI(string state[20])
 
 		if (x == 1)
 		{
-			line += "  STATS";
-		}
-
-		if (x == 3)
-		{
 			int level = player.getLevel();
 			string sLevel = to_string(level);
 			line += " Lvl: " + sLevel;
 		}
 
-		if (x == 4)
+		if (x == 2)
 		{
 			int strLev = player.getStr();
 			string sStrLev = to_string(strLev);
 			line += " Str: " + sStrLev;
 		}
 
-		if (x == 5)
+		if (x == 3)
 		{
 			int defLev = player.getDef();
 			string sDefLev = to_string(defLev);
 			line += " Def: " + sDefLev;
+		}
+
+		if (x == 4)
+		{
+			int gold = player.getGold();
+			line += " Gold: " + to_string(gold);
+		}
+
+		if (x == 5)
+		{
+			int items = inventory.size();
+			line += " Items: " + to_string(items) + "/5";
 		}
 
 		if (x == 7)
@@ -924,8 +931,10 @@ void fight(Monster &monster, string name)
 					//Enemy defeated
 					cout << "You defeated the " + name + "!" << endl;
 					cout << "You earned " + to_string(monster.getExp()) + " Experience points. " << endl;
+					cout << "You found " + to_string(monster.getGoldReward()) + " gold on the " + name + "s corpse." << endl;
 					cout << "Press any key to continue." << endl;
 					player.earnExp(monster.getExp());
+					player.earnGold(monster.getGoldReward());
 					player.levelUp();
 					waitForKeypress();
 					monster.dead();

@@ -16,6 +16,7 @@ public:
 	int getStrength();
 	int getDefence();
 	int getExp();
+	int getGoldReward();
 	char getType();
 
 private:
@@ -27,5 +28,6 @@ private:
 	int _strength;
 	int _defence;
 	int _expReward;
+	int _goldReward;
 };
 

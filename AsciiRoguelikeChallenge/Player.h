@@ -8,6 +8,7 @@ public:
 	void setLevel();
 	void takeDamage(int damage);
 	void earnExp(int exp);
+	void earnGold(int gold);
 	void maxHpUp(int amount);
 	void maxHpDown(int amount);
 	void setStrength();
@@ -27,6 +28,7 @@ public:
 	int getMaxHP();
 	int getCurrentExp();
 	int getTotalExpNeededToLevel();
+	int getGold();
 	bool isPlayerDead();
 
 
@@ -38,5 +40,6 @@ private:
 	int _defence;
 	int _exp;
 	int _totalExpNeededToLevel;
+	int _gold = 0;
 };
 
