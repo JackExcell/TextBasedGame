@@ -18,6 +18,47 @@ void Player::newGame()
 	_totalExpNeededToLevel = 100;
 	_strength = 5;
 	_defence = 5;
+	_gold = 0;
+}
+
+void Player::setLevel(int level)
+{
+	_level = level;
+}
+
+void Player::setHP(int hp)
+{
+	_currentHP = hp;
+}
+
+void Player::setMaxHP(int hp)
+{
+	_maxHP = hp;
+}
+
+void Player::setStrength(int str)
+{
+	_strength = str;
+}
+
+void Player::setDefence(int def)
+{
+	_defence = def;
+}
+
+void Player::setCurrentExp(int exp)
+{
+	_exp = exp;
+}
+
+void Player::setExpNeededToLevel(int exp)
+{
+	_totalExpNeededToLevel = exp;
+}
+
+void Player::setGold(int gold)
+{
+	_gold = gold;
 }
 
 void Player::takeDamage(int damage)

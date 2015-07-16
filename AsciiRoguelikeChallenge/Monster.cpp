@@ -132,3 +132,8 @@ char Monster::getType()
 {
 	return _type;
 }
+
+void Monster::setHP(int hp)
+{
+	_HP = hp;
+}

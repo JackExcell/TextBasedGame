@@ -35,6 +35,10 @@ void moveDown();
 bool quitGame();
 void clearLog();
 void gameOverDisplay();
+void saveGame();
+void loadGameFromSave();
+void initialiseMonstersFromSave();
+int countNumberOfActiveMonsters();
 
 char input;
 bool gameOver = false;
@@ -123,7 +127,7 @@ int main()
 			break;
 		case '2':
 			//Load Game
-			cout << "User pressed 2";
+			loadGameFromSave();
 			break;
 		case '3':
 			//Quit
@@ -392,6 +396,11 @@ void play()
 		{
 			openInventory();
 		}
+		else if (input == ' ')
+		{
+			clearScreen();
+			saveGame();
+		}
 		else if (input == 'q' || input == 'Q')
 		{
 			quit = quitGame();
@@ -630,8 +639,8 @@ void initialiseMonsters()
 		//Process strings into suitable parameter types.
 		int xPos;
 		int yPos;
-		xPos = stoi(s_xPos, nullptr, 10);
-		yPos = stoi(s_yPos, nullptr, 10);
+		xPos = stoi(s_xPos);
+		yPos = stoi(s_yPos);
 		char type = s_type[0];
 
 		switch (x)
@@ -1216,7 +1225,353 @@ void treasure()
 
 void gameOverDisplay()
 {
-	cout << "                                       GAME OVER\n\n\n\n\n\n\n\n\n\n\n\nPress any key..." << endl;
+	cout << "                                   GAME OVER\n\n\n\n\n\n\n\n\n\n\n\nPress any key..." << endl;
 	waitForKeypress();
 	clearScreen();
+}
+
+void saveGame()
+{
+	cout << "Save game? This will overwrite any previous saves. (Y/N)" << endl;
+
+	input = _getch();
+
+	if (input == 'y' || input == 'Y')
+	{
+		outStream.open("save.txt");
+
+		if (outStream.fail())
+		{
+			cout << "Error Saving" << endl;
+		}
+
+		for (int i = 0; i < 20; i++)
+		{
+			outStream << currentGameState[i] << endl;
+		}
+
+		outStream << currentLevel << endl;
+		outStream << player.getLevel() << endl;
+		outStream << player.getCurrentHP() << endl;
+		outStream << player.getMaxHP() << endl;
+		outStream << player.getStr() << endl;
+		outStream << player.getDef() << endl;
+		outStream << player.getCurrentExp() << endl;
+		outStream << player.getTotalExpNeededToLevel() << endl;
+		outStream << player.getGold() << endl;
+		outStream << inventory.size() << endl;
+
+		for (int i = 0; i < inventory.size(); i++)
+		{
+			outStream << inventory[i].getId() << endl;
+		}
+
+		outStream.close();
+
+		//Monster data for initialisation script when loading new levels, in this case loading saved game state
+		outStream.open("saveMonsterData.txt");
+		int amountOfActiveMonsters = countNumberOfActiveMonsters();
+		outStream << amountOfActiveMonsters << endl;
+
+		if (monster0.isMonsterActive())
+		{
+			outStream << monster0.getType() << endl;
+			outStream << monster0.getXPosition() << endl;
+			outStream << monster0.getYPosition() << endl;
+			outStream << monster0.getHP() << endl;
+		}
+		if (monster1.isMonsterActive())
+		{
+			outStream << monster1.getType() << endl;
+			outStream << monster1.getXPosition() << endl;
+			outStream << monster1.getYPosition() << endl;
+			outStream << monster1.getHP() << endl;
+		}
+		if (monster2.isMonsterActive())
+		{
+			outStream << monster2.getType() << endl;
+			outStream << monster2.getXPosition() << endl;
+			outStream << monster2.getYPosition() << endl;
+			outStream << monster2.getHP() << endl;
+		}
+		if (monster3.isMonsterActive())
+		{
+			outStream << monster3.getType() << endl;
+			outStream << monster3.getXPosition() << endl;
+			outStream << monster3.getYPosition() << endl;
+			outStream << monster3.getHP() << endl;
+		}
+		if (monster4.isMonsterActive())
+		{
+			outStream << monster4.getType() << endl;
+			outStream << monster4.getXPosition() << endl;
+			outStream << monster4.getYPosition() << endl;
+			outStream << monster4.getHP() << endl;
+		}
+		if (monster5.isMonsterActive())
+		{
+			outStream << monster5.getType() << endl;
+			outStream << monster5.getXPosition() << endl;
+			outStream << monster5.getYPosition() << endl;
+			outStream << monster5.getHP() << endl;
+		}
+		if (monster6.isMonsterActive())
+		{
+			outStream << monster6.getType() << endl;
+			outStream << monster6.getXPosition() << endl;
+			outStream << monster6.getYPosition() << endl;
+			outStream << monster6.getHP() << endl;
+		}
+		if (monster7.isMonsterActive())
+		{
+			outStream << monster7.getType() << endl;
+			outStream << monster7.getXPosition() << endl;
+			outStream << monster7.getYPosition() << endl;
+			outStream << monster7.getHP() << endl;
+		}
+		if (monster8.isMonsterActive())
+		{
+			outStream << monster8.getType() << endl;
+			outStream << monster8.getXPosition() << endl;
+			outStream << monster8.getYPosition() << endl;
+			outStream << monster8.getHP() << endl;
+		}
+		if (monster9.isMonsterActive())
+		{
+			outStream << monster9.getType() << endl;
+			outStream << monster9.getXPosition() << endl;
+			outStream << monster9.getYPosition() << endl;
+			outStream << monster9.getHP() << endl;
+		}
+
+		outStream.close();
+
+	}
+
+	clearScreen();
+}
+
+void loadGameFromSave()
+{
+	//Open text file, check for errors.
+	string save = "save.txt";
+	inStream.open(save);
+	if (inStream.fail())
+	{
+		//Convert to C-String to comply with perror function parameters.
+		const char * fileCString = save.c_str();
+		perror(fileCString);
+		cout << endl;
+		return;
+	}
+
+	//Load game state
+	string line;
+	for (int x = 0; x < 20; x++)
+	{
+		getline(inStream, line);
+		currentGameState[x] = line;
+	}
+
+	//Set game level
+	string sGameLevel;
+	getline(inStream, sGameLevel);
+	int gameLevel = stoi(sGameLevel);
+	currentLevel = gameLevel;
+
+	//Set player stats
+	string sPlayerLevel;
+	string sHP;
+	string sMaxHP;
+	string sStr;
+	string sDef;
+	string sExp;
+	string sExpNeeded;
+	string sGold;
+	string sNumberOfItems;
+
+	getline(inStream, sPlayerLevel);
+	getline(inStream, sHP);
+	getline(inStream, sMaxHP);
+	getline(inStream, sStr);
+	getline(inStream, sDef);
+	getline(inStream, sExp);
+	getline(inStream, sExpNeeded);
+	getline(inStream, sGold);
+	getline(inStream, sNumberOfItems);
+
+	int playerLevel = stoi(sPlayerLevel);
+	int HP = stoi(sHP);
+	int MaxHP = stoi(sMaxHP);
+	int Str = stoi(sStr);
+	int Def = stoi(sDef);
+	int Exp = stoi(sExp);
+	int ExpNeeded = stoi(sExpNeeded);
+	int Gold = stoi(sGold);
+	int NumberOfItems = stoi(sNumberOfItems);
+	
+	
+	player.setLevel(playerLevel);
+	player.setHP(HP);
+	player.setMaxHP(MaxHP);
+	player.setStrength(Str);
+	player.setDefence(Def);
+	player.setCurrentExp(Exp);
+	player.setExpNeededToLevel(ExpNeeded);
+	player.setGold(Gold);
+
+	//Set items
+	emptyInventory();
+	string sItemId;
+	int itemId;
+	for (int i = 0; i < NumberOfItems; i++)
+	{
+		getline(inStream, sItemId);
+		itemId = stoi(sItemId);
+		addItemToInventory(itemId);
+	}
+
+	inStream.close();
+
+	initialiseMonstersFromSave();
+
+	buildUI(currentGameState);
+	printUI();
+	play();
+}
+
+int countNumberOfActiveMonsters()
+{
+	int counter = 0;
+
+	if (monster0.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster1.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster2.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster3.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster4.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster5.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster6.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster7.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster8.isMonsterActive())
+	{
+		counter++;
+	}
+	if (monster9.isMonsterActive())
+	{
+		counter++;
+	}
+
+	return counter;
+}
+
+void initialiseMonstersFromSave()
+{
+	string file = "saveMonsterData.txt";
+	inStream.open(file);
+	if (inStream.fail())
+	{
+		//Convert to C-String to comply with perror function parameters.
+		const char * fileCString = file.c_str();
+		perror(fileCString);
+		cout << endl;
+		return;
+	}
+
+	//First line of the MonsterData file is the number of monsters remaining when the player saved
+	string sAmount;
+	int amount;
+	getline(inStream, sAmount);
+	amount = stoi(sAmount);
+
+	for (int x = 0; x < amount; x++)
+	{
+		//Read 4 lines of monster data from the file.
+		string s_type;
+		string s_xPos;
+		string s_yPos;
+		string s_enemyHP;
+		getline(inStream, s_type);
+		getline(inStream, s_xPos);
+		getline(inStream, s_yPos);
+		getline(inStream, s_enemyHP);
+
+		//Process strings into suitable parameter types.
+		int xPos;
+		int yPos;
+		xPos = stoi(s_xPos);
+		yPos = stoi(s_yPos);
+		char type = s_type[0];
+		int hp = stoi(s_enemyHP);
+
+		switch (x)
+		{
+		case 0:
+			monster0.initialise(xPos, yPos, currentLevel, type);
+			monster0.setHP(hp);
+			break;
+		case 1:
+			monster1.initialise(xPos, yPos, currentLevel, type);
+			monster1.setHP(hp);
+			break;
+		case 2:
+			monster2.initialise(xPos, yPos, currentLevel, type);
+			monster2.setHP(hp);
+			break;
+		case 3:
+			monster3.initialise(xPos, yPos, currentLevel, type);
+			monster3.setHP(hp);
+			break;
+		case 4:
+			monster4.initialise(xPos, yPos, currentLevel, type);
+			monster4.setHP(hp);
+			break;
+		case 5:
+			monster5.initialise(xPos, yPos, currentLevel, type);
+			monster5.setHP(hp);
+			break;
+		case 6:
+			monster6.initialise(xPos, yPos, currentLevel, type);
+			monster6.setHP(hp);
+			break;
+		case 7:
+			monster7.initialise(xPos, yPos, currentLevel, type);
+			monster7.setHP(hp);
+			break;
+		case 8:
+			monster8.initialise(xPos, yPos, currentLevel, type);
+			monster8.setHP(hp);
+			break;
+		case 9:
+			monster9.initialise(xPos, yPos, currentLevel, type);
+			monster9.setHP(hp);
+			break;
+		}
+
+	}
+
+	inStream.close();
 }

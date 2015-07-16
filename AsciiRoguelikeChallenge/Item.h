@@ -16,6 +16,7 @@ public:
 	int getDefDown();
 	int getMaxHpUp();
 	int getMaxHpDown();
+	int getId();
 
 private:
 	std::string _name;

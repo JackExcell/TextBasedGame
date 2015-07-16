@@ -5,18 +5,22 @@ public:
 	Player();
 
 	void newGame();
-	void setLevel();
+	void setLevel(int level);
+	void setHP(int hp);
+	void setMaxHP(int hp);
+	void setStrength(int str);
+	void setDefence(int def);
+	void setCurrentExp(int exp);
+	void setExpNeededToLevel(int exp);
+	void setGold(int gold);
 	void takeDamage(int damage);
 	void earnExp(int exp);
 	void earnGold(int gold);
 	void maxHpUp(int amount);
 	void maxHpDown(int amount);
-	void setStrength();
-	void setDefence();
 	void levelUp();
 	void heal(int heal);
 	void loseHealth(int amount);
-	void takeDamage();
 	void increaseStrength(int str);
 	void decreaseStrength(int str);
 	void increaseDefence(int def);

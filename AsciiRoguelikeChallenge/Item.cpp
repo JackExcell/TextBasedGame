@@ -91,3 +91,8 @@ int Item::getMaxHpDown()
 {
 	return _maxHpDown;
 }
+
+int Item::getId()
+{
+	return _id;
+}

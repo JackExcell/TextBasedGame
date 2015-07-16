@@ -4,3 +4,6 @@ W - Up
 A - Left
 S - Down
 D - Right
+Q - Quit
+I - Inventory
+Space Bar - Save Game
