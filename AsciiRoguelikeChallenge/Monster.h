@@ -19,6 +19,7 @@ public:
 	int getGoldReward();
 	char getType();
 	void setHP(int hp);
+	void setInactive();
 
 private:
 	bool _active;

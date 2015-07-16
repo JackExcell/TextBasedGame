@@ -137,3 +137,8 @@ void Monster::setHP(int hp)
 {
 	_HP = hp;
 }
+
+void Monster::setInactive()
+{
+	_active = false;
+}

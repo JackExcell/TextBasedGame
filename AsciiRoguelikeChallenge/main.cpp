@@ -39,6 +39,8 @@ void saveGame();
 void loadGameFromSave();
 void initialiseMonstersFromSave();
 int countNumberOfActiveMonsters();
+void nextStage();
+void setAllMonstersInactive();
 
 char input;
 bool gameOver = false;
@@ -58,7 +60,7 @@ string UI[24];
 //Game Data
 Player player;
 vector<Item> inventory;
-int currentLevel = 0;
+int currentLevel = 0; //Level as in stage of the game, not character level.
 string gameLog[3];
 int fleeing = 0;
 
@@ -472,6 +474,10 @@ void moveUp()
 		currentGameState[currentLine].replace(currentColumn, 1, ".");
 		treasure();
 	}
+	else if (destination == 'H')
+	{
+		nextStage();
+	}
 }
 
 void moveRight()
@@ -501,11 +507,15 @@ void moveRight()
 	{
 		gameLog[0] = "There's a wall in the way.";
 	}
-	if (destination == 'T')
+	else if (destination == 'T')
 	{
 		currentGameState[currentLine].replace(currentColumn + 1, 1, "@");
 		currentGameState[currentLine].replace(currentColumn, 1, ".");
 		treasure();
+	}
+	else if (destination == 'H')
+	{
+		nextStage();
 	}
 }
 
@@ -536,11 +546,15 @@ void moveLeft()
 	{
 		gameLog[0] = "There's a wall in the way.";
 	}
-	if (destination == 'T')
+	else if (destination == 'T')
 	{
 		currentGameState[currentLine].replace(currentColumn - 1, 1, "@");
 		currentGameState[currentLine].replace(currentColumn, 1, ".");
 		treasure();
+	}
+	else if (destination == 'H')
+	{
+		nextStage();
 	}
 }
 
@@ -571,11 +585,15 @@ void moveDown()
 	{
 		gameLog[0] = "There's a wall in the way.";
 	}
-	if (destination == 'T')
+	else if (destination == 'T')
 	{
 		currentGameState[currentLine + 1].replace(currentColumn, 1, "@");
 		currentGameState[currentLine].replace(currentColumn, 1, ".");
 		treasure();
+	}
+	else if (destination == 'H')
+	{
+		nextStage();
 	}
 }
 
@@ -607,6 +625,7 @@ void clearLog()
 }
 
 //Searches for monsters from the current game state and gives them attributes and an AI.
+//Requires the relevant monster data file in the source folder.
 void initialiseMonsters()
 {
 	string file = "Level" + to_string(currentLevel) + "MonsterData.txt";
@@ -986,6 +1005,7 @@ void fight(Monster &monster, string name)
 			{
 				clearScreen();
 				openInventory();
+				clearScreen();
 				validAction = true;
 			}
 			else if (input == '3')
@@ -1574,4 +1594,31 @@ void initialiseMonstersFromSave()
 	}
 
 	inStream.close();
+}
+
+void nextStage()
+{
+	clearScreen();
+	setAllMonstersInactive();
+	currentLevel++;
+	cout << "You ascend the ladder to the next floor of the castle." << endl;
+	cout << "\nPress any key to begin exploring floor number " + to_string(currentLevel) + "." << endl;
+	waitForKeypress();
+	loadLevel(currentLevel);
+	initialiseMonsters();
+	clearScreen();
+}
+
+void setAllMonstersInactive()
+{
+	monster0.setInactive();
+	monster1.setInactive();
+	monster2.setInactive();
+	monster3.setInactive();
+	monster4.setInactive();
+	monster5.setInactive();
+	monster6.setInactive();
+	monster7.setInactive();
+	monster8.setInactive();
+	monster9.setInactive();
 }
