@@ -27,10 +27,10 @@ Item::Item(int itemId)
 
 	case 1:
 		_name = "Super Healing Potion";
-		_description = "Heals for 180 Health Points";
+		_description = "Heals for 100 Health Points";
 		_id = 1;
 
-		_healAmount = 180;
+		_healAmount = 100;
 		_healthLossAmount = 0;
 		_strengthUp = 0;
 		_strengthDown = 0;
@@ -38,6 +38,140 @@ Item::Item(int itemId)
 		_defenceDown = 0;
 		_maxHpUp = 0;
 		_maxHpDown = 0;
+		break;
+
+	case 2:
+		_name = "Strength Potion";
+		_description = "Permenantly increase strength by 1";
+		_id = 2;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 1;
+		_strengthDown = 0;
+		_defenceUp = 0;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 3:
+		_name = "Super Strength Potion";
+		_description = "Permenantly increase strength by 2";
+		_id = 3;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 2;
+		_strengthDown = 0;
+		_defenceUp = 0;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 4:
+		_name = "Berserk Potion";
+		_description = "Permenantly increase strength by 3 at the cost of 1 defence.";
+		_id = 4;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 3;
+		_strengthDown = 0;
+		_defenceUp = 0;
+		_defenceDown = 1;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 5:
+		_name = "Stoneskin Potion";
+		_description = "Permenantly increase defence by 1";
+		_id = 5;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 0;
+		_strengthDown = 0;
+		_defenceUp = 1;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 6:
+		_name = "Steelskin Potion";
+		_description = "Permenantly increase defence by 2";
+		_id = 6;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 0;
+		_strengthDown = 0;
+		_defenceUp = 2;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 7:
+		_name = "Paladin's Elixir";
+		_description = "Permenantly increase defence by 3 and Max HP by 20, at the cost of 1 strength.";
+		_id = 7;
+
+		_healAmount = 0;
+		_healthLossAmount = 0;
+		_strengthUp = 0;
+		_strengthDown = 1;
+		_defenceUp = 3;
+		_defenceDown = 0;
+		_maxHpUp = 20;
+		_maxHpDown = 0;
+		break;
+
+	case 8:
+		_name = "Vial of Dragon's Blood";
+		_description = "This poisonous blood increases strength and defence by 1, but you take 50 damage. This will never reduce your health lower than 1 HP.";
+		_id = 8;
+		_healAmount = 0;
+		_healthLossAmount = 50;
+		_strengthUp = 1;
+		_strengthDown = 0;
+		_defenceUp = 1;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 9:
+		_name = "Elixir of Life";
+		_description = "Fully restores your Health";
+		_id = 9;
+
+		_healAmount = 99999;
+		_healthLossAmount = 0;
+		_strengthUp = 0;
+		_strengthDown = 0;
+		_defenceUp = 0;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 0;
+		break;
+
+	case 10:
+		_name = "Demonic Contract";
+		_description = "Offer some of your life force to the demons.\nSacrifice 20 of your Maximum possible HP to be fully healed and gain 1 strength and defence.";
+		_id = 10;
+
+		_healAmount = 99999;
+		_healthLossAmount = 0;
+		_strengthUp = 1;
+		_strengthDown = 0;
+		_defenceUp = 1;
+		_defenceDown = 0;
+		_maxHpUp = 0;
+		_maxHpDown = 20;
 		break;
 	}
 }

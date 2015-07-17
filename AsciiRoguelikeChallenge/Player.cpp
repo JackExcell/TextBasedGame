@@ -152,8 +152,8 @@ void Player::levelUp()
 		cout << "Your experience in battle has increased your Level!" << endl;
 		_level++;
 		cout << "You reached level " + to_string(_level) + "!" << endl;
-		_strength += (2 + _level);
-		_defence += (2 + _level);
+		_strength += (1 + (_level-1));
+		_defence += (1 + (_level-1));
 		_currentHP += 20 + (3 * _level);
 		_maxHP += 20 + (3 * _level);
 

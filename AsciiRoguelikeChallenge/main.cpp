@@ -244,79 +244,54 @@ void buildUI(string state[20])
 			line += " " + sCurrHP + "/" + sMaxHP;
 		}
 
-		if (x == 9)
+		if (x == 10)
 		{
-			int currHP = player.getCurrentHP();
-			int maxHP = player.getMaxHP();
-			double percentage = (double)currHP / (double)maxHP;
-			percentage *= 100;
-
-
-			if (percentage <= 20)
-			{
-				line += " [#    ]";
-			}
-			else if (percentage <= 40)
-			{
-				line += " [##   ]";
-			}
-			else if (percentage <= 60)
-			{
-				line += " [###  ]";
-			}
-			else if (percentage <= 80)
-			{
-				line += " [#### ]";
-			}
-			else
-			{
-				line += " [#####]";
-			}
+			line += " EXP:";
 		}
 
 		if (x == 11)
 		{
-			line += "   EXP";
-		}
-
-		if (x == 12)
-		{
 			line += " " + to_string(player.getCurrentExp()) + "/" + to_string(player.getTotalExpNeededToLevel());
 		}
 
-		if (x == 14)
+		if (x == 13)
 		{
 			line += " @ Player";
 		}
 
-		if (x == 15)
+		if (x == 14)
 		{
 			line += " T Treasure";
 		}
 
-		if (x == 16)
+		if (x == 15)
 		{
 			line += " H Ladder";
 		}
 
-		if (x == 17)
+		if (x == 16)
 		{
 			line += " S Snake";
 		}
 
-		if (x == 18)
+		if (x == 17)
 		{
 			line += " O Ogre";
 		}
 
-		if (x == 19)
+		if (x == 18)
 		{
 			line += " D Dragon";
 		}
 
+		if (x == 19)
+		{
+			line += " K King";
+		}
+
 		if (x == 20)
 		{
-			line += "                                        K King";
+			line += "                                        M Merchant";
 		}
 
 		if (x == 21)
@@ -1197,7 +1172,7 @@ void emptyInventory()
 void treasure()
 {
 	//This value needs to be updated as new items are added to ensure ill items are randomly obtainable.
-	uniform_int_distribution<int> treasureRoll(0, 1);
+	uniform_int_distribution<int> treasureRoll(0, 10);
 	int roll = treasureRoll(rng);
 	Item loot(roll);
 
