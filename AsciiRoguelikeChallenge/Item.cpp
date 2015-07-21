@@ -3,7 +3,7 @@
 
 Item::Item(int itemId)
 {
-	//Current number of items = 2
+	//Current number of items = 11
 
 	//The name, description and effects of the item are determined by its Id.
 	//The switch statement below serves as a list of all available items in game,
@@ -14,6 +14,7 @@ Item::Item(int itemId)
 		_name = "Healing Potion";
 		_description = "Heals for 50 Health Points";
 		_id = 0;
+		_price = 30;
 
 		_healAmount = 50;
 		_healthLossAmount = 0;
@@ -29,6 +30,7 @@ Item::Item(int itemId)
 		_name = "Super Healing Potion";
 		_description = "Heals for 100 Health Points";
 		_id = 1;
+		_price = 50;
 
 		_healAmount = 100;
 		_healthLossAmount = 0;
@@ -44,6 +46,7 @@ Item::Item(int itemId)
 		_name = "Strength Potion";
 		_description = "Permenantly increase strength by 1";
 		_id = 2;
+		_price = 80;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -59,6 +62,7 @@ Item::Item(int itemId)
 		_name = "Super Strength Potion";
 		_description = "Permenantly increase strength by 2";
 		_id = 3;
+		_price = 120;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -74,6 +78,7 @@ Item::Item(int itemId)
 		_name = "Berserk Potion";
 		_description = "Permenantly increase strength by 3 at the cost of 1 defence.";
 		_id = 4;
+		_price = 150;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -89,6 +94,7 @@ Item::Item(int itemId)
 		_name = "Stoneskin Potion";
 		_description = "Permenantly increase defence by 1";
 		_id = 5;
+		_price = 80;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -104,6 +110,7 @@ Item::Item(int itemId)
 		_name = "Steelskin Potion";
 		_description = "Permenantly increase defence by 2";
 		_id = 6;
+		_price = 120;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -119,6 +126,7 @@ Item::Item(int itemId)
 		_name = "Paladin's Elixir";
 		_description = "Permenantly increase defence by 3 and Max HP by 20, at the cost of 1 strength.";
 		_id = 7;
+		_price = 150;
 
 		_healAmount = 0;
 		_healthLossAmount = 0;
@@ -134,6 +142,8 @@ Item::Item(int itemId)
 		_name = "Vial of Dragon's Blood";
 		_description = "This poisonous blood increases strength and defence by 1, but you take 50 damage. This will never reduce your health lower than 1 HP.";
 		_id = 8;
+		_price = 90;
+
 		_healAmount = 0;
 		_healthLossAmount = 50;
 		_strengthUp = 1;
@@ -148,6 +158,7 @@ Item::Item(int itemId)
 		_name = "Elixir of Life";
 		_description = "Fully restores your Health";
 		_id = 9;
+		_price = 125;
 
 		_healAmount = 99999;
 		_healthLossAmount = 0;
@@ -163,6 +174,7 @@ Item::Item(int itemId)
 		_name = "Demonic Contract";
 		_description = "Offer some of your life force to the demons.\nSacrifice 20 of your Maximum possible HP to be fully healed and gain 1 strength and defence.";
 		_id = 10;
+		_price = 135;
 
 		_healAmount = 99999;
 		_healthLossAmount = 0;
@@ -229,4 +241,9 @@ int Item::getMaxHpDown()
 int Item::getId()
 {
 	return _id;
+}
+
+int Item::getPrice()
+{
+	return _price;
 }

@@ -16,6 +16,7 @@ public:
 	void takeDamage(int damage);
 	void earnExp(int exp);
 	void earnGold(int gold);
+	void loseGold(int gold);
 	void maxHpUp(int amount);
 	void maxHpDown(int amount);
 	void levelUp();

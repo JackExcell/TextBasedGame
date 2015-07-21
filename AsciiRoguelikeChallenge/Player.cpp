@@ -76,6 +76,11 @@ void Player::earnGold(int gold)
 	_gold += gold;
 }
 
+void Player::loseGold(int gold)
+{
+	_gold -= gold;
+}
+
 void Player::maxHpUp(int amount)
 {
 	_maxHP += amount;

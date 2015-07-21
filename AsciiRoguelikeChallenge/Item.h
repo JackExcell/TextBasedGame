@@ -17,6 +17,7 @@ public:
 	int getMaxHpUp();
 	int getMaxHpDown();
 	int getId();
+	int getPrice();
 
 private:
 	std::string _name;
@@ -31,6 +32,7 @@ private:
 	int _defenceDown;
 	int _maxHpUp;
 	int _maxHpDown;
+	int _price;
 
 };
 

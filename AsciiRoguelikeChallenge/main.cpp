@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Item.h"
+#include "Shop.h"
 
 using namespace std;
 
@@ -41,6 +42,8 @@ void initialiseMonstersFromSave();
 int countNumberOfActiveMonsters();
 void nextStage();
 void setAllMonstersInactive();
+void startShop();
+void buyItem(Item item);
 
 char input;
 bool gameOver = false;
@@ -59,6 +62,7 @@ string UI[24];
 
 //Game Data
 Player player;
+Shop shop;
 vector<Item> inventory;
 int currentLevel = 0; //Level as in stage of the game, not character level.
 string gameLog[3];
@@ -453,6 +457,10 @@ void moveUp()
 	{
 		nextStage();
 	}
+	else if (destination == 'M')
+	{
+		startShop();
+	}
 }
 
 void moveRight()
@@ -491,6 +499,10 @@ void moveRight()
 	else if (destination == 'H')
 	{
 		nextStage();
+	}
+	else if (destination == 'M')
+	{
+		startShop();
 	}
 }
 
@@ -531,6 +543,10 @@ void moveLeft()
 	{
 		nextStage();
 	}
+	else if (destination == 'M')
+	{
+		startShop();
+	}
 }
 
 void moveDown()
@@ -569,6 +585,10 @@ void moveDown()
 	else if (destination == 'H')
 	{
 		nextStage();
+	}
+	else if (destination == 'M')
+	{
+		startShop();
 	}
 }
 
@@ -1596,4 +1616,175 @@ void setAllMonstersInactive()
 	monster7.setInactive();
 	monster8.setInactive();
 	monster9.setInactive();
+}
+
+void startShop()
+{
+	clearScreen();
+	bool done = false;
+	Item i(0);
+	cout << "------------------" << endl;
+	cout << "|    MERCHANT    |" << endl;
+	cout << "------------------" << endl << endl;
+	shop.prepareStock(currentLevel);
+	while (!done)
+	{
+		shop.displayItemsForSale();
+		cout << endl << endl << "You have " + to_string(player.getGold()) + " gold." << endl;
+		cout << "\nChoose an item or press X to return to the map." << endl << endl;
+		input = _getch();
+
+		if (input == '1' && shop.getStockSize() > 0)
+		{
+			i = shop.getItem(1);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '2' && shop.getStockSize() > 1)
+		{
+			i = shop.getItem(2);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '3' && shop.getStockSize() > 2)
+		{
+			i = shop.getItem(3);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '4' && shop.getStockSize() > 3)
+		{
+			i = shop.getItem(4);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '5' && shop.getStockSize() > 4)
+		{
+			i = shop.getItem(5);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '6' && shop.getStockSize() > 5)
+		{
+			i = shop.getItem(6);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '7' && shop.getStockSize() > 6)
+		{
+			i = shop.getItem(7);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '8' && shop.getStockSize() > 7)
+		{
+			i = shop.getItem(8);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == '9' && shop.getStockSize() > 8)
+		{
+			i = shop.getItem(9);
+			cout << i.getName() << endl << endl;
+			cout << i.getDescription() << endl << endl;
+			cout << "Buy this item for " + to_string(i.getPrice()) + " gold? (Y/N)" << endl;
+			input = _getch();
+
+			if (input == 'y' || input == 'Y')
+			{
+				buyItem(i);
+			}
+		}
+
+		if (input == 'x' || input == 'X')
+		{
+			done = true;
+		}
+	}
+}
+
+void buyItem(Item item)
+{
+	if (inventory.size() >= 5)
+	{
+		cout << "Your backpack is too full for any more items..." << endl;
+	}
+	else if (player.getGold() > item.getPrice())
+	{
+		player.loseGold(item.getPrice());
+		inventory.push_back(item);
+		cout << "You purchase the " + item.getName() + "..." << endl;
+	}
+	else
+	{
+		cout << "You cannot afford the " + item.getName() + "..." << endl;
+	}
+
+	cout << "Press any key to continue." << endl;
+	waitForKeypress();
+	clearScreen();
 }
