@@ -43,12 +43,22 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
+		_HP = 100 + (level * 6);
+		_strength = 12 + (level * 2);
+		_defence = 9 + level;
+		_expReward = 150 + (level * 3);
+		_goldReward = 95 + (level * 2);
 		break;
 	case 'K':
 		//Monster is of type King
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
+		_HP = 500;
+		_strength = 40;
+		_defence = 28;
+		_expReward = 500;
+		_goldReward = 1000;
 		break;
 	default:
 		cout << "MONSTER DATA ERROR" << endl;
