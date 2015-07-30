@@ -990,6 +990,7 @@ void fight(Monster &monster, string name)
 					if (player.isPlayerDead())
 					{
 						cout << "\nYou have been defeated..." << endl;
+						waitForKeypress();
 						gameOver = true;
 						battleComplete = true;
 					}
@@ -1011,6 +1012,7 @@ void fight(Monster &monster, string name)
 				if (player.isPlayerDead())
 				{
 					cout << "\nYou have been defeated..." << endl;
+					waitForKeypress();
 					gameOver = true;
 				}
 				else
