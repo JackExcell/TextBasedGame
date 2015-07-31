@@ -21,8 +21,8 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 25 + (level * 3);
-		_strength = 5 + level;
+		_HP = 25 + (level * 9);
+		_strength = 3 + (level*4);
 		_defence = 1 + level;
 		_expReward = 25 + (level * 2);
 		_goldReward = 12 + level;
@@ -32,8 +32,8 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 40 + (level * 5);
-		_strength = 6 + (level*2);
+		_HP = 40 + (level * 9);
+		_strength = 2 + (level*5);
 		_defence = 1 + level;
 		_expReward = 45 + (level * 3);
 		_goldReward = 30 + (level * 2);
@@ -43,20 +43,20 @@ void Monster::initialise(int xPos, int yPos, int level, char type)
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 100 + (level * 6);
-		_strength = 12 + (level * 2);
-		_defence = 9 + level;
-		_expReward = 150 + (level * 3);
-		_goldReward = 95 + (level * 2);
+		_HP = 80 + (level * 8);
+		_strength = (level * 7);
+		_defence = 5 + (level*4);
+		_expReward = 120 + (level * 3);
+		_goldReward = 50 + (level * 3);
 		break;
 	case 'K':
 		//Monster is of type King
 		_xPos = xPos;
 		_yPos = yPos;
 		_type = type;
-		_HP = 500;
-		_strength = 40;
-		_defence = 28;
+		_HP = 1000;
+		_strength = 70;
+		_defence = 45;
 		_expReward = 500;
 		_goldReward = 1000;
 		break;

@@ -47,6 +47,7 @@ void buyItem(Item item);
 
 char input;
 bool gameOver = false;
+bool gameBeaten = false;
 bool quit = false;
 bool loopMenu = true;
 
@@ -85,6 +86,7 @@ default_random_engine rng;
 uniform_int_distribution<int> randomDirection(1, 4);
 uniform_int_distribution<int> damageVariation(3, 7);
 uniform_int_distribution<int> criticalHitRoll(1, 100);
+uniform_int_distribution<int> treasureRoll(0, 10);
 
 int main()
 {
@@ -121,6 +123,8 @@ int main()
 		{
 		case '1':
 			//New Game
+			gameOver = false;
+			gameBeaten = false;
 			loadLevel(1);
 			player.newGame();
 			emptyInventory();
@@ -133,6 +137,8 @@ int main()
 			break;
 		case '2':
 			//Load Game
+			gameOver = false;
+			gameBeaten = false;
 			loadGameFromSave();
 			break;
 		case '3':
@@ -946,6 +952,10 @@ void fight(Monster &monster, string name)
 					totalDamage = totalDamage * 1.5;
 				}
 				totalDamage -= monster.getDefence();
+				if (totalDamage < 1)
+				{
+					totalDamage = 1;
+				}
 				cout << "You inflict " + to_string(totalDamage) + " damage." << endl << endl;
 				monster.takeDamage(totalDamage);
 				alive = monster.checkIfDead();
@@ -985,6 +995,10 @@ void fight(Monster &monster, string name)
 						totalDamage = totalDamage * 1.5;
 					}
 					totalDamage -= player.getDef();
+					if (totalDamage < 1)
+					{
+						totalDamage = 1;
+					}
 					cout << "You take " + to_string(totalDamage) + " damage." << endl << endl;
 					player.takeDamage(totalDamage);
 					if (player.isPlayerDead())
@@ -1194,7 +1208,6 @@ void emptyInventory()
 void treasure()
 {
 	//This value needs to be updated as new items are added to ensure ill items are randomly obtainable.
-	uniform_int_distribution<int> treasureRoll(0, 10);
 	int roll = treasureRoll(rng);
 	Item loot(roll);
 
@@ -1219,6 +1232,8 @@ void treasure()
 
 		while (decided == false)
 		{
+			input = _getch();
+
 			if (input == 'y' || input == 'Y')
 			{
 				cout << "You used the " + loot.getName() << endl;
@@ -1242,9 +1257,18 @@ void treasure()
 
 void gameOverDisplay()
 {
-	cout << "                                   GAME OVER\n\n\n\n\n\n\n\n\n\n\n\nPress any key..." << endl;
-	waitForKeypress();
-	clearScreen();
+	if (gameBeaten)
+	{
+		clearScreen();
+		cout << "                                CONGRATULATIONS!" << endl;
+		cout << "                               You beat the game!\n\n\n\n\n\n\n\n\n\n\n\n" << endl;
+	}
+	else
+	{
+		cout << "                                   GAME OVER\n\n\n\n\n\n\n\n\n\n\n\nPress any key..." << endl;
+		waitForKeypress();
+		clearScreen();
+	}
 }
 
 void saveGame()
@@ -1595,15 +1619,28 @@ void initialiseMonstersFromSave()
 
 void nextStage()
 {
-	clearScreen();
-	setAllMonstersInactive();
-	currentLevel++;
-	cout << "You ascend the ladder to the next floor of the castle." << endl;
-	cout << "\nPress any key to begin exploring floor number " + to_string(currentLevel) + "." << endl;
-	waitForKeypress();
-	loadLevel(currentLevel);
-	initialiseMonsters();
-	clearScreen();
+	if (currentLevel == 10)
+	{
+		//Game completed
+		gameBeaten = true;
+		gameOver = true;
+		gameOverDisplay();
+		waitForKeypress();
+		clearScreen();
+
+	}
+	else
+	{
+		clearScreen();
+		setAllMonstersInactive();
+		currentLevel++;
+		cout << "You ascend the ladder to the next floor of the castle." << endl;
+		cout << "\nPress any key to begin exploring floor number " + to_string(currentLevel) + "." << endl;
+		waitForKeypress();
+		loadLevel(currentLevel);
+		initialiseMonsters();
+		clearScreen();
+	}
 }
 
 void setAllMonstersInactive()

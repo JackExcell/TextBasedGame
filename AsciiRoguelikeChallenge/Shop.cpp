@@ -43,31 +43,11 @@ void Shop::prepareStock(int currentFloor)
 		if (_stock.size() == 9)
 		{
 			_stock.erase(_stock.begin());
-			_stock.push_back(item8);
-		}
-		else
-		{
-			_stock.push_back(item8);
-		}
-
-		if (_stock.size() == 9)
-		{
-			_stock.erase(_stock.begin());
 			_stock.push_back(item9);
 		}
 		else
 		{
 			_stock.push_back(item9);
-		}
-
-		if (_stock.size() == 9)
-		{
-			_stock.erase(_stock.begin());
-			_stock.push_back(item10);
-		}
-		else
-		{
-			_stock.push_back(item10);
 		}
 		
 	case 8:
